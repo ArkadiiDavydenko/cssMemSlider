@@ -3,9 +3,11 @@
     font-family: Arial, sans-serif;
     --color-background: rgb(195 190 172);
     --color-title: rgb(68, 67, 62);
-    --coloe-text: rgb(68, 67, 62);
-    --coloe-button: rgb(227, 227, 222);
-    --coloe-button-border: rgb(52, 52, 52);
+    --color-text: rgb(68, 67, 62);
+    --color-button-hover: rgb(227, 224, 215);
+    --color-button-active: rgb(100, 86, 43);
+    --color-button-checked: rgb(21, 18, 9);
+    --color-button-border: rgb(52, 52, 52);
 }
 
 * {
@@ -30,22 +32,25 @@ h1 {
 
 .wrapper {
     margin: 0 auto;
-    width: 60vw;
+    width: 50vw;
 }
 
 /*-----------------header---*/
 .title {
     text-align: right;
-    padding: 0.5em 0;
+    padding: 0.5em 0.2rem;
     color: var(--color-title);
 }
 
 /*------------------main---*/
 .slider {
+    margin: 0 auto;
+    max-width: 40rem;
     display: grid;
     grid-template-columns: 1fr 0.8fr;
     grid-template-rows: 1fr 0.1fr;
     grid-row-gap: 1em;
+    /*height: 60vh;*/
 }
 
 .radio {
@@ -53,38 +58,47 @@ h1 {
 }
 
 .slider__img {
+    margin: 0 auto;
     grid-column: 1/3;
     grid-rows: 1/2;
     display: flex;
     flex-direction: row;
     overflow: hidden;
-    height: 70vh;
+    width: 80%;
+
 }
 
 .img-block {
+    opacity: 0;
     width: 100%;
+    height: 100%;
     flex-shrink: 0;
-    transition: all 0.2s;
+    transition: all 0.5s;
 }
 
-.img-block > img  {
+.img-block > img {
     display: block;
-    object-fit: cover;
+    object-fit: fill;
     width: 100%;
 }
 
 
 .slider__text {
+    padding: 0.5rem 0;
     grid-column: 1/2;
     grid-rows: 2/3;
-    padding: 1em;
     display: flex;
     flex-direction: row;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .text {
+    opacity: 0;
+    height: 100%;
     width: 100%;
+    flex-shrink: 0;
+    transition: all 0.8s;
+    background: var(--color-background);
 }
 
 .slider__buttons {
@@ -96,27 +110,63 @@ h1 {
     align-items: center;
 }
 
+
+.slider__label {
+    padding: 0.7rem;
+}
+
+.slider__label:hover {
+    cursor: pointer;
+}
+
+.slider__label:hover > .button {
+    background: var(--color-button-hover);
+    border: 0.2em solid var(--color-button-hover);
+}
+
+.slider__label:active > .button {
+    background: var(--color-button-active);
+}
+
+
 .button {
-    margin: 0 0.5em;
-    width: 2em;
-    height: 1em;
-    border: 0.2em solid var(--coloe-button-border);
+    width: 1.5em;
+    height: 1.5em;
+    border: 0.2em solid var(--color-button-border);
+    border-radius: 0.4em;
+    transition: all 0.5s;
 }
 
-#sl-radio1:checked ~ .slider__img .slider__img1 {
+#sl-radio1:checked ~ .slider__img .slider__img1,
+#sl-radio1:checked ~ .slider__text .slider__text1 {
     transform: translateX(0%);
+    opacity: 1;
 }
 
-#sl-radio2:checked ~ .slider__img .slider__img2 {
+#sl-radio2:checked ~ .slider__img .slider__img2,
+#sl-radio2:checked ~ .slider__text .slider__text2 {
     transform: translateX(-100%);
+    opacity: 1;
 }
 
-#sl-radio3:checked ~ .slider__img .slider__img3 {
+#sl-radio3:checked ~ .slider__img .slider__img3,
+#sl-radio3:checked ~ .slider__text .slider__text3 {
     transform: translateX(-200%);
+    opacity: 1;
 }
 
-#sl-radio4:checked ~ .slider__img .slider__img4 {
+#sl-radio4:checked ~ .slider__img .slider__img4,
+#sl-radio4:checked ~ .slider__text .slider__text4 {
     transform: translateX(-300%);
+    opacity: 1;
+}
+
+/*--------------------------------------------------------*/
+#sl-radio1:checked ~ .slider__buttons .slider__label .button__1,
+#sl-radio2:checked ~ .slider__buttons .slider__label .button__2,
+#sl-radio3:checked ~ .slider__buttons .slider__label .button__3,
+#sl-radio4:checked ~ .slider__buttons .slider__label .button__4 {
+    background: var(--color-button-checked);
 }
 
 
@@ -130,24 +180,28 @@ h1 {
 
 .footer__copy {
     font-size: 1.5rem;
-    color: var(--coloe-text);
+    color: var(--color-text);
 }
 
 .footer__rs-school-link {
     font-size: 2rem;
     text-decoration: none;
-    color: var(--coloe-text);
+    color: var(--color-text);
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 760px) {
+    h1 {
+        font-size: calc(2em + 1vw);
+    }
+
     body {
         font-size: 0.8em;
     }
 
     .slider {
         grid-template-columns: 1fr;
-        grid-template-rows: 1fr 0.1fr 0.1fr;
+        grid-template-rows: 1fr 0.15fr 0.1fr;
     }
 
     .slider__img {
@@ -166,6 +220,10 @@ h1 {
         justify-content: center;
     }
 
+    .text {
+        font-size: calc(1em + 1vw);
+    }
+
     .footer__wrapper {
         padding: 1.5em 0;
         display: flex;
@@ -173,6 +231,12 @@ h1 {
         align-items: center;
     }
 
+    .footer__copy {
+        font-size: calc(0.7em + 1vw);
+    }
 
+    .footer__rs-school-link {
+        font-size: calc(1em + 1vw);
+    }
 }
 
